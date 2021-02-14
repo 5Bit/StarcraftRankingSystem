@@ -59,7 +59,7 @@ class RecommenderSystem(object): #Note to self - have to inheret from object in 
 		topKPerGroup = list()
 		avgPerGroup = list()
 		for league, group in self.groupPositions:
-			print "Analyzing similarity in Group ", league, "\n"
+			print("Analyzing similarity in Group ", league, "\n")
 			#print group
 			#For each player in this group, calculate the similarity
 			simList = list()
@@ -93,7 +93,7 @@ class RecommenderSystem(object): #Note to self - have to inheret from object in 
 		groupIndexes = self.groupPositions.groups.keys()
 		#print avgPerGroup
 		optimalIndex = sorted(range( len( avgPerGroup )), key = lambda i: avgPerGroup[i])
-		print "Optimal Group index", optimalIndex
+		print("Optimal Group index", optimalIndex)
 
 		
 		#get the bestGroup

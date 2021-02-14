@@ -25,14 +25,14 @@ class Preprocessing(object): #Note to self - have to inheret from object in 2.7
 	
 	
 		#First, identify rows with nulls/NaNs.
-		print "Data Cleaning in process."
-		print "Found nulls/NaNs in the following rows:"
+		print("Data Cleaning in process.")
+		print("Found nulls/NaNs in the following rows:")
 		localData = inData
 		colHasNulls = list()
 		for column in localData:
 			hasNull = localData[column].isnull().values.any()
 			if(hasNull):
-				print column, ": ", hasNull
+				print(column, ": ", hasNull)
 			colHasNulls.append(hasNull)
 			
 		withNulls = [i for i, isNull in enumerate(colHasNulls) if isNull == True]
@@ -69,15 +69,15 @@ class Preprocessing(object): #Note to self - have to inheret from object in 2.7
 		
 		if originalDataSize > 0: #if more rows than 0...
 			#if length of duplicates is greater than the acceptable loss, then just drop them.
-			print "Data is larger than 0"
+			print("Data is larger than 0")
 			
 			
 			if(float(len(nansPerRow))/originalDataSize) < self.accLoss:
-				print "Removing all rows with nans, as it will be still be meeting expectations."
+				print("Removing all rows with nans, as it will be still be meeting expectations.")
 				positions = list(nansPerRow.keys())
 				#print positions
 				localData.drop(positions, inplace = True)
-				print len(localData)
+				print(len(localData))
 				return localData
 			else:
 				#get the details about nan positions...
@@ -96,8 +96,8 @@ class Preprocessing(object): #Note to self - have to inheret from object in 2.7
 				
 				#if under the acceptable losses, suggest increasing acceptable losses and throw error.
 				if(currentDataSize/originalDataSize < self.accLoss):
-					print "The amount of data lost is more than the acceptable losses."
-					print "Adjust your expectations or gather more data and try again."
+					print("The amount of data lost is more than the acceptable losses.")
+					print("Adjust your expectations or gather more data and try again.")
 					quit()
 				#if at acceptable losses or just under it, return the localData
 				elif(nextDataSize/originalDataSize <= self.accLoss):
@@ -128,16 +128,16 @@ class Preprocessing(object): #Note to self - have to inheret from object in 2.7
 				
 		
 				if len(localData) ==0: #nothing left after cleaning. Return error
-					print "No data is left after cleaning."
-					print "Adjust your expectations or gather more data and try again."
+					print("No data is left after cleaning.")
+					print("Adjust your expectations or gather more data and try again.")
 					quit()
 				else:
-					print localData
+					print(localData)
 					return localData
 		else:
 			#return an error saying issue with Data - check if it meets specifications.
-			print "The data did not meet the software's expectations."
-			print "Verify your data is A CSV and has data within it."
+			print("The data did not meet the software's expectations.")
+			print("Verify your data is A CSV and has data within it.")
 			quit()
 
 	#Handles normalizing the data as it is given, and estimating any NaNs left.
@@ -152,7 +152,7 @@ class Preprocessing(object): #Note to self - have to inheret from object in 2.7
 		#First, removes gameID and Age
 		localData = localData.drop('GameID', 1)
 		localData = localData.drop('Age', 1)
-		print "Data Normalization in process."
+		print("Data Normalization in process.")
 
 		
 		#TODO if time permits , average based on group instead
@@ -191,7 +191,7 @@ class Preprocessing(object): #Note to self - have to inheret from object in 2.7
 	def CountDuplicates(self, inList):
 		inList = sorted(inList)
 		#print inList
-		nansPerRow =collections.Counter(inList)
+		nansPerRow = collections.Counter(inList)
 		return nansPerRow
 		
 	#Takes in a a dictionary of locations of duplicates and their nans
@@ -213,4 +213,3 @@ class Preprocessing(object): #Note to self - have to inheret from object in 2.7
 			#store the row's info in nanPosPerRow
 			nanPosPerRow.append(rowInfo)
 		return nanPosPerRow		
-	

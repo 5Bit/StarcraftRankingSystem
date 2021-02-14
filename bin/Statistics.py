@@ -2,8 +2,7 @@ import numpy as np
 import pandas as pd
 
 
-
-class Statistics(object):
+class Statistics:
 
 	#Constructor
 	def __init__(self, cleanedData):
@@ -17,8 +16,8 @@ class Statistics(object):
 		pd.set_option('display.max_columns', 500)
 		groupData = list()
 		for league, group in self.groupPositions:
-			print "League: ", league
-			print group.describe()
+			print("League: ", league)
+			print(group.describe())
 			
 			groupData.append([league, group.describe(include = "all")])
 		return groupData
